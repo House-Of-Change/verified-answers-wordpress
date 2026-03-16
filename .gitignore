@@ -1,0 +1,39 @@
+# Environment
+.env
+.env.*
+
+# WordPress core (installed via Docker/composer)
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/backup-db/
+wp-content/blogs.dir/
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+error_log
+debug.log
+
+# Node (if frontend tooling is added)
+node_modules/
+package-lock.json
+
+# PHP
+vendor/
+composer.lock

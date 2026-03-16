@@ -1,0 +1,107 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+class VA_FAQ_Admin {
+
+    public static function init(): void {
+        add_action( 'admin_menu', [ __CLASS__, 'add_settings_page' ] );
+        add_action( 'admin_init', [ __CLASS__, 'register_settings' ] );
+    }
+
+    public static function add_settings_page(): void {
+        add_options_page(
+            'Verified Answers FAQ',
+            'Verified Answers FAQ',
+            'manage_options',
+            'va-faq-settings',
+            [ __CLASS__, 'render_settings_page' ]
+        );
+    }
+
+    public static function register_settings(): void {
+        register_setting( 'va_faq_settings', 'va_faq_api_url', [
+            'type'              => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'default'           => '',
+        ] );
+        register_setting( 'va_faq_settings', 'va_faq_api_key', [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ] );
+        register_setting( 'va_faq_settings', 'va_faq_cache_ttl', [
+            'type'              => 'integer',
+            'sanitize_callback' => 'absint',
+            'default'           => 3600,
+        ] );
+        register_setting( 'va_faq_settings', 'va_faq_default_set', [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ] );
+
+        add_settings_section(
+            'va_faq_main_section',
+            'API Configuration',
+            function () {
+                echo '<p>Configure the Verified Answers API connection. Leave API URL empty to use the local JSON data file.</p>';
+            },
+            'va-faq-settings'
+        );
+
+        add_settings_field( 'va_faq_api_url', 'API URL', [ __CLASS__, 'render_text_field' ], 'va-faq-settings', 'va_faq_main_section', [
+            'name'        => 'va_faq_api_url',
+            'placeholder' => 'https://api.verifiedanswers.com/v1',
+        ] );
+        add_settings_field( 'va_faq_api_key', 'API Key', [ __CLASS__, 'render_text_field' ], 'va-faq-settings', 'va_faq_main_section', [
+            'name'        => 'va_faq_api_key',
+            'placeholder' => 'sk-...',
+            'type'        => 'password',
+        ] );
+        add_settings_field( 'va_faq_cache_ttl', 'Cache Duration (seconds)', [ __CLASS__, 'render_text_field' ], 'va-faq-settings', 'va_faq_main_section', [
+            'name'        => 'va_faq_cache_ttl',
+            'placeholder' => '3600',
+            'type'        => 'number',
+        ] );
+        add_settings_field( 'va_faq_default_set', 'Default FAQ Set ID', [ __CLASS__, 'render_text_field' ], 'va-faq-settings', 'va_faq_main_section', [
+            'name'        => 'va_faq_default_set',
+            'placeholder' => 'general-store-faqs',
+        ] );
+    }
+
+    public static function render_text_field( array $args ): void {
+        $name        = $args['name'];
+        $value       = get_option( $name, '' );
+        $placeholder = $args['placeholder'] ?? '';
+        $type        = $args['type'] ?? 'text';
+
+        printf(
+            '<input type="%s" name="%s" value="%s" placeholder="%s" class="regular-text" />',
+            esc_attr( $type ),
+            esc_attr( $name ),
+            esc_attr( $value ),
+            esc_attr( $placeholder )
+        );
+    }
+
+    public static function render_settings_page(): void {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        ?>
+        <div class="wrap">
+            <h1>Verified Answers FAQ Settings</h1>
+            <form action="options.php" method="post">
+                <?php
+                settings_fields( 'va_faq_settings' );
+                do_settings_sections( 'va-faq-settings' );
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+}

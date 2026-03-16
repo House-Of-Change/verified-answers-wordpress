@@ -1,0 +1,59 @@
+.va-faq-section {
+    max-width: 800px;
+    margin: 2rem 0;
+}
+
+.va-faq-heading {
+    margin-bottom: 1rem;
+}
+
+.va-faq-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.va-faq-item:first-of-type {
+    border-top: 1px solid #e0e0e0;
+}
+
+.va-faq-item details {
+    padding: 0;
+}
+
+.va-faq-item summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.va-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.va-faq-item summary::after {
+    content: "+";
+    font-size: 1.25rem;
+    font-weight: 400;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.va-faq-item details[open] summary::after {
+    content: "\2212"; /* minus sign */
+}
+
+.va-faq-answer {
+    padding: 0 0 1rem 0;
+    line-height: 1.6;
+}
+
+.va-faq-source {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+}

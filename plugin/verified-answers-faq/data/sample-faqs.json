@@ -1,0 +1,120 @@
+{
+  "blue-snowboard-faqs": {
+    "faqs": [
+      {
+        "slug": "what-skill-level-blue-snowboard",
+        "question": "What skill level is the Blue Snowboard designed for?",
+        "answer": "The Blue Snowboard is designed for intermediate to advanced riders. Its medium flex and directional shape provide stability at high speeds while still being forgiving enough for progressing riders.",
+        "source": "Product Development Team",
+        "updatedAt": "2025-12-01T10:00:00Z"
+      },
+      {
+        "slug": "blue-snowboard-sizing",
+        "question": "How do I choose the right size for the Blue Snowboard?",
+        "answer": "We recommend sizing based on your weight and riding style. For most riders between 150-180 lbs, the 156cm is ideal. Heavier riders or those who prefer deep powder should size up to the 160cm. Check our size chart on the product page for detailed recommendations.",
+        "source": "Customer Support",
+        "updatedAt": "2025-11-15T14:30:00Z"
+      },
+      {
+        "slug": "blue-snowboard-warranty",
+        "question": "What warranty comes with the Blue Snowboard?",
+        "answer": "The Blue Snowboard comes with a 2-year manufacturer warranty covering defects in materials and workmanship. This does not cover damage from normal wear, impacts, or improper use. Contact our support team with your proof of purchase to file a claim.",
+        "source": "Warranty Department",
+        "updatedAt": "2025-10-20T09:00:00Z"
+      }
+    ]
+  },
+  "red-snowboard-faqs": {
+    "faqs": [
+      {
+        "slug": "red-snowboard-difference",
+        "question": "What makes the Red Snowboard different from the Blue?",
+        "answer": "The Red Snowboard features a stiffer flex pattern and aggressive camber profile, making it better suited for advanced riders who prioritize edge hold and responsiveness. The Blue model is more versatile with a medium flex for all-mountain riding.",
+        "source": "Product Development Team",
+        "updatedAt": "2025-12-01T10:00:00Z"
+      },
+      {
+        "slug": "red-snowboard-terrain",
+        "question": "What terrain is the Red Snowboard best for?",
+        "answer": "The Red Snowboard excels on groomed runs and hard-packed snow. Its camber profile and stiffer flex provide excellent edge hold for carving. It can handle powder but is not optimized for deep snow days.",
+        "source": "Product Development Team",
+        "updatedAt": "2025-11-20T11:00:00Z"
+      }
+    ]
+  },
+  "green-jacket-faqs": {
+    "faqs": [
+      {
+        "slug": "green-jacket-waterproof",
+        "question": "Is the Green Jacket waterproof?",
+        "answer": "Yes, the Green Jacket features a 20K/20K waterproof-breathable membrane with fully taped seams. It will keep you dry in heavy snow and light rain. For extended exposure to heavy rain, we recommend applying a DWR refresh spray seasonally.",
+        "source": "Product Development Team",
+        "updatedAt": "2025-11-01T08:00:00Z"
+      },
+      {
+        "slug": "green-jacket-temperature",
+        "question": "What temperature range is the Green Jacket suitable for?",
+        "answer": "The Green Jacket has 100g synthetic insulation, making it comfortable for temperatures between 15°F and 35°F (-9°C to 2°C). For colder days, layer with a midlayer fleece. For warmer spring days, the pit zips provide ventilation.",
+        "source": "Customer Support",
+        "updatedAt": "2025-10-15T13:00:00Z"
+      }
+    ]
+  },
+  "returns-shipping": {
+    "faqs": [
+      {
+        "slug": "return-policy",
+        "question": "What is your return policy?",
+        "answer": "We offer a 30-day return policy on all unused items in original packaging. Items must be in new condition with all tags attached. Sale items are final sale and cannot be returned. Contact our support team to initiate a return.",
+        "source": "Customer Support",
+        "updatedAt": "2025-12-01T10:00:00Z"
+      },
+      {
+        "slug": "shipping-times",
+        "question": "How long does shipping take?",
+        "answer": "Standard shipping takes 5-7 business days within the continental US. Expedited shipping (2-3 business days) is available for an additional fee. Orders placed before 2pm EST ship the same business day.",
+        "source": "Logistics Team",
+        "updatedAt": "2025-11-10T16:00:00Z"
+      },
+      {
+        "slug": "international-shipping",
+        "question": "Do you ship internationally?",
+        "answer": "Yes, we ship to over 40 countries. International shipping takes 7-14 business days depending on the destination. Customs duties and taxes are the responsibility of the buyer and are not included in the shipping cost.",
+        "source": "Logistics Team",
+        "updatedAt": "2025-11-10T16:00:00Z"
+      },
+      {
+        "slug": "exchange-process",
+        "question": "How do I exchange an item for a different size?",
+        "answer": "To exchange an item, contact our support team within 30 days of delivery. We'll send you a prepaid return label and ship the new size as soon as we receive the original item. If the new size is out of stock, we'll issue a full refund.",
+        "source": "Customer Support",
+        "updatedAt": "2025-10-25T12:00:00Z"
+      }
+    ]
+  },
+  "general-store-faqs": {
+    "faqs": [
+      {
+        "slug": "gift-cards",
+        "question": "Do you offer gift cards?",
+        "answer": "Yes! We offer digital gift cards in denominations of $25, $50, $100, and $200. Gift cards are delivered via email and never expire. They can be used on any product in our store.",
+        "source": "Customer Support",
+        "updatedAt": "2025-12-01T10:00:00Z"
+      },
+      {
+        "slug": "contact-support",
+        "question": "How can I contact customer support?",
+        "answer": "You can reach our support team via email at support@vademostore.com, by phone at 1-800-555-0199 (Mon-Fri 9am-5pm EST), or through the live chat on our website. We typically respond to emails within 24 hours.",
+        "source": "Customer Support",
+        "updatedAt": "2025-11-15T09:00:00Z"
+      },
+      {
+        "slug": "price-matching",
+        "question": "Do you offer price matching?",
+        "answer": "We offer price matching on identical items from authorized retailers. The competing price must be currently available and verifiable. Contact our support team with a link to the lower price, and we'll match it within 7 days of your purchase.",
+        "source": "Sales Team",
+        "updatedAt": "2025-10-30T14:00:00Z"
+      }
+    ]
+  }
+}
