@@ -4,7 +4,11 @@ set -e
 WP_PATH=/var/www/html
 
 echo "Waiting for database to be ready..."
-until wp db check --path="$WP_PATH" 2>/dev/null; do
+until php -r "
+\$conn = @new mysqli(getenv('WORDPRESS_DB_HOST'), getenv('WORDPRESS_DB_USER'), getenv('WORDPRESS_DB_PASSWORD'), getenv('WORDPRESS_DB_NAME'));
+if (\$conn->connect_errno) { echo \$conn->connect_error . PHP_EOL; exit(1); }
+exit(0);
+"; do
     echo "  ...waiting"
     sleep 3
 done
