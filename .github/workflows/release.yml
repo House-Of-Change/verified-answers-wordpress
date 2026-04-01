@@ -1,0 +1,94 @@
+name: Release Plugin
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine next version
+        id: version
+        run: |
+          LATEST=$(git tag -l 'v*' --sort=-v:refname | head -1)
+          if [ -z "$LATEST" ]; then
+            NEXT="v1.0.0"
+          else
+            # Strip leading 'v', split on '.', bump patch
+            VERSION="${LATEST#v}"
+            MAJOR=$(echo "$VERSION" | cut -d. -f1)
+            MINOR=$(echo "$VERSION" | cut -d. -f2)
+            PATCH=$(echo "$VERSION" | cut -d. -f3)
+            NEXT="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+          fi
+          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "version=${NEXT#v}" >> "$GITHUB_OUTPUT"
+          echo "previous=$LATEST" >> "$GITHUB_OUTPUT"
+
+      - name: Update version in plugin file
+        run: |
+          PLUGIN_FILE="plugin/verified-answers-faq/verified-answers-faq.php"
+          VERSION="${{ steps.version.outputs.version }}"
+          sed -i "s/ \* Version:.*/ * Version: ${VERSION}/" "$PLUGIN_FILE"
+          sed -i "s/define( 'VA_FAQ_VERSION', '[^']*' )/define( 'VA_FAQ_VERSION', '${VERSION}' )/" "$PLUGIN_FILE"
+
+      - name: Build zip
+        run: |
+          cd plugin
+          zip -r ../verified-answers-faq.zip verified-answers-faq/ \
+            --exclude "*.DS_Store" \
+            --exclude "__MACOSX/*"
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREVIOUS="${{ steps.version.outputs.previous }}"
+          if [ -z "$PREVIOUS" ]; then
+            COMMITS=$(git log --pretty=format:"- %s" | head -20)
+          else
+            COMMITS=$(git log "${PREVIOUS}..HEAD" --pretty=format:"- %s")
+          fi
+          # Escape for GitHub output (multiline)
+          echo "commits<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$COMMITS" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
+          files: verified-answers-faq.zip
+          body: |
+            ## What's changed
+
+            ${{ steps.changelog.outputs.commits }}
+
+            ---
+
+            ## Install this release
+
+            Download with a fine-grained GitHub token scoped to this repo (`Contents: Read`):
+
+            ```bash
+            curl -L \
+              -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+              -H "Accept: application/octet-stream" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/assets/$(curl -s \
+                -H 'Authorization: Bearer YOUR_TOKEN_HERE' \
+                'https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }}' \
+                | grep -o '"id":[0-9]*' | head -1 | grep -o '[0-9]*')" \
+              -o verified-answers-faq.zip
+            ```
+
+            Then install in WordPress: **Plugins → Add New → Upload Plugin**.

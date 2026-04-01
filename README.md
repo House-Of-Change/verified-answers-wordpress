@@ -85,6 +85,52 @@ When the platform's publish REST API is ready, the switch requires no code chang
 
 The local JSON file serves as a fallback if the API is unreachable.
 
+## Releasing & Client Distribution
+
+Every PR merged to `main` automatically triggers a GitHub Actions workflow that:
+
+1. Increments the patch version (e.g. `v1.0.0` → `v1.0.1`)
+2. Updates the version in the plugin PHP file
+3. Zips `plugin/verified-answers-faq/` into `verified-answers-faq.zip`
+4. Creates a tagged GitHub Release with the zip attached
+
+### Installing a Release (Client Instructions)
+
+Since the repo is private, clients need a **fine-grained GitHub personal access token** to download releases.
+
+**Create a token:**
+
+1. Go to GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+2. Click **Generate new token**
+3. Set **Resource owner** to the repo owner (`benatwork`)
+4. Under **Repository access**, select only `verified-answers-wordpress`
+5. Under **Permissions → Repository permissions**, set **Contents** to `Read-only`
+6. Generate and copy the token
+
+**Download a release zip:**
+
+```bash
+# Replace YOUR_TOKEN and the version tag as needed
+curl -L \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Accept: application/octet-stream" \
+  "$(curl -s \
+    -H 'Authorization: Bearer YOUR_TOKEN' \
+    'https://api.github.com/repos/benatwork/verified-answers-wordpress/releases/latest' \
+    | grep '"browser_download_url"' | cut -d'"' -f4)" \
+  -o verified-answers-faq.zip
+```
+
+Or navigate directly to the [Releases page](https://github.com/benatwork/verified-answers-wordpress/releases) while logged in to GitHub with an account that has repo access and download the zip manually.
+
+**Install in WordPress:**
+
+1. In WP Admin, go to **Plugins → Add New → Upload Plugin**
+2. Choose `verified-answers-faq.zip` and click **Install Now**
+3. Activate the plugin
+
+To update an existing installation, upload the new zip — WordPress will prompt you to replace the current version.
+
 ## Architecture
 
 ```
